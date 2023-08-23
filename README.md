@@ -1,3 +1,12 @@
+## Proyecto de Tarjetas de Personajes de Rick and Morty
+
+¡Bienvenido al emocionante proyecto de tarjetas de personajes de Rick and Morty! En esta página web, puedes explorar una colección de tarjetas que muestran a tus personajes favoritos de la serie. donde solo estamos mostrando los personajes que son humanos. 
+
+Cada tarjeta tiene el nombre del personaje,y por supuesto una imagen para que puedas reconocerlos al instante!
+
+La página es sencilla, sin complicaciones. Así que, ¿por qué no te tomas un momento para explorar a los  personajes humanos de Rick and Morty? 
+
+
 # Proyecto Frontend y Backend
 
 Este proyecto consta de una aplicación frontend desarrollada con Next.js y un servidor backend desarrollado con Express.
