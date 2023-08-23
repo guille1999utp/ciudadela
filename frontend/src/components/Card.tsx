@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
   
-  const CardSkyn: React.FC<CardSkynProps> = ({ name, description, id, image }) => {
+  const CardSkyn: React.FC<CardSkynProps> = ({ name, id, image }) => {
   
   const classes = useStyles();
 
@@ -33,7 +33,6 @@ const useStyles = makeStyles(() => ({
         <Typography gutterBottom variant="h5" component="h2">
           {name}
         </Typography>
-        <Typography>{description}</Typography>
       </CardContent>
     </Card>
   );

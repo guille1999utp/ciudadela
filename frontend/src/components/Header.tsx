@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   name: {
     '&:hover': { cursor: 'pointer' },
     margin:"auto"
-  },
+  }
 }));
 
 const Header = () => {
@@ -20,7 +20,7 @@ const Header = () => {
 
 
   return (
-    <AppBar position="relative">
+    <AppBar position="relative" style={{marginBottom:"40px"}}>
       <Toolbar>
         <Typography
           className={classes.name}

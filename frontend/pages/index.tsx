@@ -2,7 +2,11 @@ import Header from '@/src/components/Header';
 import { Box, Container, Grid,  } from '@material-ui/core';
 import CardSkyn from '@/src/components/Card';
 import { makeStyles } from '@material-ui/core/styles';
+import { Button, ButtonGroup } from '@material-ui/core';
 import { CardSkynProps } from '@/interfaces/card';
+import { useState,useEffect } from 'react'
+import axios from 'axios'
+import Pagination from '@/src/components/Pagination';
 
 const useStyles = makeStyles((theme) => ({
   cardGrid: {
@@ -11,46 +15,68 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+interface propsResponse {
+  info?: {
+      count?:number;
+      next?:string;
+      pages?: number;
+      prev?:string;
+  };
+  results?: CardSkynProps[];
+}
+
 export default function Home() {
 
   const classes = useStyles();
 
-  const ListCharacter : CardSkynProps[] = [{
-    name:"rick",
-    description:"rick es cacorro como julian pa",
-    id:345,
-    image:"https://elcomercio.pe/resizer/yHlVmeje9JdLEROBvNgsdoVpwRs=/1200x900/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/KRKOINCP7JGR7KWT4HNBDSJPDA.jpg"
-  },{
-    name:"rick",
-    description:"rick es cacorro como julian pa",
-    id:345,
-    image:"https://elcomercio.pe/resizer/yHlVmeje9JdLEROBvNgsdoVpwRs=/1200x900/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/KRKOINCP7JGR7KWT4HNBDSJPDA.jpg"
-  },{
-    name:"rick",
-    description:"rick es cacorro como julian pa",
-    id:345,
-    image:"https://elcomercio.pe/resizer/yHlVmeje9JdLEROBvNgsdoVpwRs=/1200x900/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/KRKOINCP7JGR7KWT4HNBDSJPDA.jpg"
-  },]
+  const [characters, setCharacters] = useState<propsResponse>({});
+  const [page, setPage] = useState(1);
 
+  const fetchCharacters = async () => {
+    try {
+      const response = await axios.get(`http://localhost:4000/get-characters?page=${page}`);
+      setCharacters(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error fetching characters:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCharacters()
+  }, [page])
+
+  const handleNextPage = () => {
+    if(characters.info?.next){
+      setPage(page + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if(characters.info?.prev){
+      setPage(page - 1);
+    }
+  };
+  
+  console.log(page)
   return (
     <Box>
       <Header />
 
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-          {ListCharacter.map((Character, i) => (
+          {characters.results?.map((Character, i) => (
             <Grid item key={i} xs={12} sm={6} md={4}>
               <CardSkyn
                 id={Character.id}
                 name={Character.name}
-                description={Character.description}
                 image={Character.image}
               />
             </Grid>
           ))}
         </Grid>
+        <Pagination onNext={handleNextPage} onPrev={handlePrevPage} />
       </Container>
-
       
     </Box>
   )
